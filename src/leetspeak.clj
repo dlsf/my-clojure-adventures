@@ -4,6 +4,7 @@
 (defn text-to-leetspeak [text]
   (let [chars {"i" 1
                "l" 1
+               "z" 2
                "e" 3
                "a" 4
                "s" 5
