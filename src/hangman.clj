@@ -46,5 +46,5 @@
   (println "Welcome to Hangman!")
   (println "Win by guessing the characters of a common but random English word")
   (println "Be aware: You may only make 7 mistakes!")
-  (let [target-word (generate-random-word)]
-    (next-round (repeat-string "_" (count target-word)) target-word 0 '[])))
+  (let [target-word (generate-random-word) hidden-word (repeat-string "_" (count target-word))]
+    (next-round hidden-word target-word 0 '[])))
