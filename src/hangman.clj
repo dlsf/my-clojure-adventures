@@ -1,8 +1,8 @@
 (ns hangman
   (:require [clojure.string :as str]))
 
-(defn generate-random-word [file-name]
-  "Chooses a random word from the given file."
+(defn get-random-line [file-name]
+  "Chooses a random line from the given file."
   (let [lines (str/split-lines (slurp file-name))]
     (nth lines (rand-int (count lines)))))
 
@@ -45,6 +45,6 @@
   (println "Welcome to Hangman!")
   (println "Win by guessing the characters of a common but random English word")
   (println "Be aware: You may only make 7 mistakes!")
-  (let [target-word (generate-random-word "resources/hangman_input.txt")
+  (let [target-word (get-random-line "resources/hangman_input.txt")
         hidden-word (repeat-string "_" (count target-word))]
     (next-round hidden-word target-word 0 '[])))
