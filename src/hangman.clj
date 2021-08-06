@@ -32,7 +32,7 @@
             (println "All guessed characters:" (str/join ", " guessed-characters))
             (println "Please guess a character of this word:")
             (let [guess (str/upper-case (read-line))]
-              (if (not (nil? (re-matches #"^[A-Za-z]$" guess)))
+              (if (.matches guess "^[A-Za-z]$")
                 (if (.contains target-word guess)
                   (do (println "The word contains" guess)
                       (recur (show-hidden-characters guessed-word target-word guess) target-word wrong-attempts (conj guessed-characters guess)))
