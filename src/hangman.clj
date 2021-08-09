@@ -1,27 +1,25 @@
 (ns hangman
   (:require [clojure.string :as str]))
 
-(defn get-random-line [file-name]
+(defn get-random-line
   "Chooses a random line from the given file."
-  (let [lines (str/split-lines (slurp file-name))]
-    (nth lines (rand-int (count lines)))))
+  [file-name]
+  (-> (slurp file-name) (str/split-lines) (rand-nth)))
 
-(defn repeat-string [string n]
+(defn repeat-string
   "Repeats the given string n times."
-  (reduce str (repeat n string)))
+  [string n]
+  (str/join "" (repeat n string)))
 
-(defn show-hidden-characters [hidden-text target-text character]
+(defn show-hidden-characters
   "Replaces all occurrences of a given character in a hidden string so it matches the target string."
-  (loop [output (vec hidden-text) index 0]
-    (if (= (count hidden-text) index)
-      (str/join "" output)
-      (if (= character (str (nth target-text index)))
-        (recur (assoc output index character) (inc index))
-        (recur output (inc index))))))
+  [hidden-text target-text character]
+  (str/join "" (map (fn [hidden target] (if (= target (first character)) character hidden)) hidden-text target-text)))
 
 
-(defn next-round [guessed-word target-word wrong-attempts guessed-characters]
+(defn next-round
   "Handles a round of Hangman."
+  [guessed-word target-word wrong-attempts guessed-characters]
   (println (repeat-string "*" 50))
   (cond
     (= wrong-attempts 7) (do (println "You were unable to guess the word in 7 attempts, therefore you loose.")
